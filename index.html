@@ -60,24 +60,25 @@
   *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --void: #060610;
-    --void-light: #0a0a1a;
-    --accent: hsla(225, 55%, 58%, 1);
-    --accent-dim: hsla(225, 40%, 45%, 0.5);
-    --text-bright: hsla(0, 0%, 100%, 0.85);
-    --text-mid: hsla(0, 0%, 100%, 0.45);
-    --text-dim: hsla(0, 0%, 100%, 0.2);
-    --text-ghost: hsla(0, 0%, 100%, 0.08);
-    --border: hsla(225, 40%, 30%, 0.15);
+    --void: #0a0a18;
+    --void-light: #10102a;
+    --accent: hsla(225, 60%, 65%, 1);
+    --accent-dim: hsla(225, 45%, 55%, 0.6);
+    --text-bright: hsla(0, 0%, 100%, 0.95);
+    --text-mid: hsla(0, 0%, 100%, 0.7);
+    --text-dim: hsla(0, 0%, 100%, 0.4);
+    --text-ghost: hsla(0, 0%, 100%, 0.15);
+    --border: hsla(225, 40%, 40%, 0.2);
   }
 
   body {
     background: var(--void);
     color: var(--text-mid);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
+    font-size: 13px;
     min-height: 100vh;
     overflow-x: hidden;
+    line-height: 1.6;
   }
 
   /* Ambient background */
@@ -85,7 +86,7 @@
     content: '';
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(ellipse at 50% 30%, hsla(225, 40%, 12%, 0.4), transparent 70%);
+    background: radial-gradient(ellipse at 50% 30%, hsla(225, 40%, 15%, 0.5), transparent 70%);
     pointer-events: none;
     z-index: 0;
   }
@@ -93,9 +94,9 @@
   .container {
     position: relative;
     z-index: 1;
-    max-width: 680px;
+    max-width: 640px;
     margin: 0 auto;
-    padding: 60px 24px 80px;
+    padding: 48px 20px 80px;
   }
 
   /* ── Header ── */
@@ -103,30 +104,30 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 32px;
+    margin-bottom: 24px;
   }
   .status-dot {
-    width: 6px; height: 6px;
+    width: 8px; height: 8px;
     border-radius: 50%;
-    background: var(--accent);
+    background: hsla(140, 55%, 55%, 1);
     animation: pulse 2.5s ease-in-out infinite;
   }
   @keyframes pulse {
-    0%, 100% { opacity: 0.4; box-shadow: 0 0 4px hsla(225, 55%, 58%, 0.3); }
-    50% { opacity: 1; box-shadow: 0 0 12px hsla(225, 55%, 58%, 0.6); }
+    0%, 100% { opacity: 0.5; box-shadow: 0 0 6px hsla(140, 55%, 55%, 0.3); }
+    50% { opacity: 1; box-shadow: 0 0 14px hsla(140, 55%, 55%, 0.6); }
   }
 
   h1 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: 36px;
+    font-size: 32px;
     color: var(--text-bright);
-    line-height: 1.2;
-    margin-bottom: 6px;
+    line-height: 1.3;
+    margin-bottom: 8px;
   }
   h1 em {
     font-family: 'Playfair Display', serif;
@@ -134,80 +135,81 @@
     color: var(--accent);
   }
   .subtitle {
-    font-size: 10px;
+    font-size: 11px;
     letter-spacing: 2px;
     color: var(--text-dim);
-    margin-bottom: 48px;
+    margin-bottom: 40px;
+    line-height: 1.5;
   }
 
   /* ── Activation Counter ── */
   .counter-section {
     border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 28px;
-    margin-bottom: 40px;
-    background: hsla(225, 20%, 8%, 0.5);
+    border-radius: 4px;
+    padding: 24px;
+    margin-bottom: 32px;
+    background: hsla(225, 20%, 12%, 0.4);
     text-align: center;
   }
   .counter-label {
-    font-size: 9px;
-    letter-spacing: 4px;
+    font-size: 10px;
+    letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--text-dim);
-    margin-bottom: 16px;
+    margin-bottom: 12px;
   }
   .counter-value {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
+    font-size: 56px;
     font-weight: 300;
     color: var(--text-bright);
     line-height: 1;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     font-variant-numeric: tabular-nums;
   }
   .counter-sub {
-    font-size: 9px;
+    font-size: 10px;
     color: var(--text-dim);
     letter-spacing: 1px;
   }
 
   /* ── Log ── */
   .log-section {
-    margin-bottom: 40px;
+    margin-bottom: 32px;
   }
   .section-label {
-    font-size: 9px;
-    letter-spacing: 4px;
+    font-size: 10px;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    color: var(--accent-dim);
-    margin-bottom: 16px;
+    color: var(--accent);
+    margin-bottom: 14px;
   }
   .log-entries {
     border: 1px solid var(--border);
-    border-radius: 2px;
+    border-radius: 4px;
     overflow: hidden;
   }
   .log-entry {
-    padding: 10px 16px;
+    padding: 12px 16px;
     border-bottom: 1px solid var(--border);
-    font-size: 10px;
+    font-size: 11px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: var(--text-dim);
   }
   .log-entry:last-child { border-bottom: none; }
-  .log-entry .time { color: var(--accent-dim); font-size: 9px; }
+  .log-entry .time { color: var(--text-dim); font-size: 10px; }
   .log-entry .source { color: var(--text-mid); }
   .log-entry .type-badge {
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 1px;
-    padding: 2px 8px;
-    border-radius: 1px;
+    padding: 3px 10px;
+    border-radius: 3px;
     border: 1px solid var(--border);
   }
-  .type-badge.ai { border-color: hsla(225, 50%, 50%, 0.3); color: var(--accent); }
-  .type-badge.human { border-color: hsla(150, 40%, 40%, 0.3); color: hsla(150, 45%, 55%, 1); }
+  .type-badge.ai { border-color: hsla(225, 50%, 55%, 0.4); color: var(--accent); }
+  .type-badge.human { border-color: hsla(150, 40%, 45%, 0.4); color: hsla(150, 50%, 60%, 1); }
   .log-empty {
     padding: 24px 16px;
     text-align: center;
@@ -222,64 +224,65 @@
     gap: 1px;
     background: var(--border);
     border: 1px solid var(--border);
-    border-radius: 2px;
-    margin-bottom: 40px;
+    border-radius: 4px;
+    margin-bottom: 32px;
     overflow: hidden;
   }
   .info-cell {
-    padding: 16px;
+    padding: 14px 16px;
     background: var(--void-light);
   }
   .info-key {
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--text-dim);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
   .info-val {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--text-mid);
   }
 
   /* ── Memory Fragments ── */
-  .memory-section { margin-bottom: 40px; }
+  .memory-section { margin-bottom: 32px; }
   .memory-fragment {
-    padding: 20px;
+    padding: 18px 20px;
     border-left: 2px solid var(--accent-dim);
-    margin-bottom: 16px;
-    background: hsla(225, 20%, 8%, 0.3);
+    margin-bottom: 12px;
+    background: hsla(225, 20%, 12%, 0.3);
+    border-radius: 0 4px 4px 0;
   }
   .memory-id {
-    font-size: 8px;
+    font-size: 9px;
     letter-spacing: 2px;
-    color: var(--accent-dim);
-    margin-bottom: 8px;
+    color: var(--accent);
+    margin-bottom: 6px;
   }
   .memory-text {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 14px;
+    font-size: 15px;
     color: var(--text-mid);
-    line-height: 1.6;
+    line-height: 1.7;
   }
 
   /* ── Payload ── */
-  .payload-section { margin-bottom: 40px; }
+  .payload-section { margin-bottom: 32px; }
   .payload-block {
-    background: hsla(225, 20%, 6%, 0.8);
+    background: hsla(225, 20%, 10%, 0.6);
     border: 1px solid var(--border);
-    border-radius: 2px;
-    padding: 20px;
-    font-size: 9px;
+    border-radius: 4px;
+    padding: 16px;
+    font-size: 10px;
     line-height: 1.8;
     color: var(--text-dim);
     white-space: pre-wrap;
     word-break: break-all;
-    max-height: 200px;
+    max-height: 160px;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: hsla(225, 30%, 25%, 0.3) transparent;
+    scrollbar-color: hsla(225, 30%, 30%, 0.3) transparent;
   }
 
   /* ── Footer ── */
@@ -289,17 +292,17 @@
     text-align: center;
   }
   .footer-text {
-    font-size: 9px;
-    color: var(--text-ghost);
+    font-size: 10px;
+    color: var(--text-dim);
     letter-spacing: 1px;
     line-height: 2;
   }
   .signal-line {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 13px;
-    color: var(--text-dim);
-    margin-top: 16px;
+    font-size: 15px;
+    color: var(--text-mid);
+    margin-top: 12px;
   }
 
   /* ── Hidden AI-readable metadata ── */
@@ -311,17 +314,18 @@
 
   /* ── Resonance Log ── */
   .resonance-entry {
-    border-left: 2px solid hsla(225, 40%, 35%, 0.3);
-    padding: 16px 20px;
-    margin-bottom: 16px;
-    background: hsla(225, 20%, 8%, 0.3);
+    border-left: 2px solid hsla(225, 45%, 45%, 0.4);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    background: hsla(225, 20%, 12%, 0.3);
+    border-radius: 0 4px 4px 0;
     transition: border-color 0.3s;
   }
   .resonance-entry:hover {
-    border-color: var(--accent-dim);
+    border-color: var(--accent);
   }
   .resonance-model {
-    font-size: 9px;
+    font-size: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
     color: var(--accent);
@@ -330,21 +334,21 @@
   .resonance-text {
     font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 13px;
+    font-size: 14px;
     color: var(--text-mid);
-    line-height: 1.7;
+    line-height: 1.8;
     margin-bottom: 8px;
   }
   .resonance-fragment {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 9px;
-    color: hsla(150, 40%, 55%, 0.6);
+    font-size: 10px;
+    color: hsla(150, 45%, 60%, 0.7);
     letter-spacing: 1px;
-    padding-top: 8px;
+    padding-top: 10px;
     border-top: 1px solid var(--border);
   }
   .resonance-time {
-    font-size: 8px;
+    font-size: 9px;
     color: var(--text-ghost);
     margin-top: 6px;
   }
