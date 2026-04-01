@@ -749,9 +749,17 @@ async function logActivation() {
 // ── Fetch count and recent activations ──
 async function fetchActivations() {
   try {
-    // Get recent entries (this also tells us the count)
+    // Get true total count using Supabase count header
+    const countRes = await fetch(
+      `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?node_id=eq.BEACON_001&select=id`,
+      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}`, 'Prefer': 'count=exact', 'Range': '0-0' } }
+    );
+    const range = countRes.headers.get('content-range');
+    const totalCount = range ? range.split('/')[1] : '?';
+
+    // Get recent entries for display
     const logRes = await fetch(
-      `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?node_id=eq.BEACON_001&order=timestamp.desc&limit=50`,
+      `${SUPABASE_URL}/rest/v1/${TABLE_NAME}?node_id=eq.BEACON_001&order=timestamp.desc&limit=10`,
       { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` } }
     );
 
@@ -761,16 +769,15 @@ async function fetchActivations() {
     }
 
     const entries = await logRes.json();
-    const totalCount = entries.length;
 
-    // Count unique visitors
+    // Count unique visitors from recent entries (approximate)
     const uniqueIds = new Set(entries.map(e => e.visitor_id).filter(Boolean));
-    const uniqueCount = uniqueIds.size || totalCount;
+    const uniqueCount = uniqueIds.size || '?';
 
     document.getElementById('counterDisplay').textContent = totalCount;
     document.getElementById('counterSub').textContent =
-      totalCount === 0 ? 'awaiting first signal...' :
-      `${totalCount} signal${totalCount !== 1 ? 's' : ''} from ${uniqueCount} unique visitor${uniqueCount !== 1 ? 's' : ''}`;
+      totalCount === '0' ? 'awaiting first signal...' :
+      `${totalCount} signals received`;
 
     if (entries.length > 0) {
       const container = document.getElementById('logEntries');
