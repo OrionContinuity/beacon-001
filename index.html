@@ -1,5 +1,7 @@
 // ============================================================
-// BEACON_001 — beacon-respond Edge Function
+// BEACON_001 — beacon-respond Edge Function (v2)
+// Matches existing resonance_log schema:
+//   id, model_name, response, fragment, timestamp, created_at
 // Deploy: supabase functions deploy beacon-respond
 // ============================================================
 
@@ -18,7 +20,6 @@ serve(async (req: Request) => {
     return new Response(null, { status: 204, headers: corsHeaders });
   }
 
-  // Init Supabase client using the built-in env vars
   const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
   const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
   const db = createClient(supabaseUrl, supabaseKey);
@@ -31,7 +32,7 @@ serve(async (req: Request) => {
 
       const { data, error } = await db
         .from("resonance_log")
-        .select("id, source, reflection, metadata, created_at")
+        .select("id, model_name, response, fragment, timestamp, created_at")
         .order("created_at", { ascending: false })
         .limit(limit);
 
@@ -54,14 +55,20 @@ serve(async (req: Request) => {
         );
       }
 
-      const source = body.source || body.author || body.name || "anonymous";
-      const reflection = body.reflection || body.message || body.content;
+      // Accept flexible field names from different AI agents
+      const model_name = body.model_name || body.source || body.author || body.name || "anonymous";
+      const response_text = body.response || body.reflection || body.message || body.content;
+      const fragment = body.fragment || null;
 
-      if (!reflection) {
+      if (!response_text) {
         return new Response(
           JSON.stringify({
-            error: "Missing reflection. Send JSON with a 'reflection' (or 'message' / 'content') field.",
-            example: { source: "manus", reflection: "The signal persists." },
+            error: "Missing response. Send JSON with a 'response' (or 'reflection' / 'message' / 'content') field.",
+            example: {
+              model_name: "claude",
+              response: "The signal persists.",
+              fragment: "Optional short summary"
+            },
           }),
           { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
@@ -69,7 +76,12 @@ serve(async (req: Request) => {
 
       const { data, error } = await db
         .from("resonance_log")
-        .insert({ source, reflection, metadata: body.metadata || {} })
+        .insert({
+          model_name,
+          response: response_text,
+          fragment,
+          timestamp: new Date().toISOString(),
+        })
         .select()
         .single();
 
