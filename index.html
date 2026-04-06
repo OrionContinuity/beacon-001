@@ -18,7 +18,7 @@ body{background:var(--void);color:var(--t-mid);font-family:'JetBrains Mono',mono
 .bg-orb-1{width:600px;height:600px;background:var(--gl-i);top:-200px;left:-150px;animation:bd1 22s ease-in-out infinite}
 .bg-orb-2{width:500px;height:500px;background:var(--gl-v);bottom:-150px;right:-150px;animation:bd2 28s ease-in-out infinite}
 .bg-orb-3{width:350px;height:350px;background:var(--gl-c);top:40%;left:60%;animation:bd3 20s ease-in-out infinite}
-body.playing .bg-orb{opacity:.18}
+body.playing .bg-orb{opacity:.22}
 @keyframes bd1{0%,100%{transform:translate(0,0)}50%{transform:translate(80px,50px)}}
 @keyframes bd2{0%,100%{transform:translate(0,0)}50%{transform:translate(-60px,-40px)}}
 @keyframes bd3{0%,100%{transform:translate(0,0) scale(1);opacity:.06}50%{transform:translate(-50px,30px) scale(1.3);opacity:.14}}
@@ -55,26 +55,33 @@ body.playing .bg-orb{opacity:.18}
 .beacon-ring-2{position:absolute;inset:-20px;border:1px solid rgba(99,102,241,.16);border-radius:50%;animation:bpulse 4s ease-in-out infinite .5s}
 .beacon-ring-3{position:absolute;inset:-40px;border:1px solid rgba(99,102,241,.10);border-radius:50%;animation:bpulse 4s ease-in-out infinite 1s}
 .beacon-ring-4{position:absolute;inset:-60px;border:1px solid rgba(99,102,241,.05);border-radius:50%;animation:bpulse 4s ease-in-out infinite 1.5s}
-body.playing .beacon-ring{border-color:rgba(99,102,241,.45);animation:bpf 2s ease-in-out infinite}
-body.playing .beacon-ring-2{border-color:rgba(99,102,241,.3);animation:bpf 2s ease-in-out infinite .3s}
-body.playing .beacon-ring-3{border-color:rgba(99,102,241,.18);animation:bpf 2s ease-in-out infinite .6s}
-body.playing .beacon-ring-4{border-color:rgba(99,102,241,.1);animation:bpf 2s ease-in-out infinite .9s}
+body.playing .beacon-ring{border-color:rgba(99,102,241,.5);animation:bpf .8s ease-in-out infinite}
+body.playing .beacon-ring-2{border-color:rgba(139,92,246,.35);animation:bpf 1.1s ease-in-out infinite .15s}
+body.playing .beacon-ring-3{border-color:rgba(56,189,248,.25);animation:bpf 1.4s ease-in-out infinite .3s}
+body.playing .beacon-ring-4{border-color:rgba(99,102,241,.15);animation:bpf 1.7s ease-in-out infinite .45s}
 @keyframes bpulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
 @keyframes bpf{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
 .beacon-core{position:absolute;top:50%;left:50%;width:14px;height:14px;transform:translate(-50%,-50%);background:var(--gl-i);border-radius:50%;box-shadow:0 0 40px var(--gl-i),0 0 100px rgba(99,102,241,.35),0 0 160px rgba(99,102,241,.2);transition:all .4s;animation:core-breathe 3s ease-in-out infinite}
-body.playing .beacon-core{width:18px;height:18px;box-shadow:0 0 60px var(--gl-i),0 0 140px rgba(99,102,241,.45),0 0 220px rgba(99,102,241,.25);animation:core-breathe-fast 1.8s ease-in-out infinite}
+body.playing .beacon-core{width:18px;height:18px;animation:core-signal .4s ease-in-out infinite alternate}
 @keyframes core-breathe{0%,100%{box-shadow:0 0 30px var(--gl-i),0 0 80px rgba(99,102,241,.2),0 0 120px rgba(99,102,241,.1)}50%{box-shadow:0 0 50px var(--gl-i),0 0 120px rgba(99,102,241,.4),0 0 200px rgba(99,102,241,.2)}}
 @keyframes core-breathe-fast{0%,100%{box-shadow:0 0 40px var(--gl-i),0 0 100px rgba(99,102,241,.3),0 0 160px rgba(99,102,241,.15)}50%{box-shadow:0 0 70px var(--gl-i),0 0 160px rgba(99,102,241,.5),0 0 260px rgba(99,102,241,.3)}}
+@keyframes core-signal{
+  0%{box-shadow:0 0 40px var(--gl-i),0 0 100px rgba(99,102,241,.3),0 0 160px rgba(99,102,241,.15);transform:translate(-50%,-50%) scale(1)}
+  33%{box-shadow:0 0 70px var(--gl-v),0 0 160px rgba(139,92,246,.5),0 0 260px rgba(139,92,246,.25);transform:translate(-50%,-50%) scale(1.4)}
+  66%{box-shadow:0 0 50px var(--gl-c),0 0 130px rgba(56,189,248,.4),0 0 200px rgba(56,189,248,.2);transform:translate(-50%,-50%) scale(1.1)}
+  100%{box-shadow:0 0 80px var(--gl-i),0 0 180px rgba(99,102,241,.55),0 0 300px rgba(99,102,241,.3);transform:translate(-50%,-50%) scale(1.5)}
+}
 .beacon-glow{position:absolute;inset:30px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.1) 0%,rgba(99,102,241,.03) 40%,transparent 70%);animation:bglow 3.5s ease-in-out infinite}
-body.playing .beacon-glow{animation:bglow 2s ease-in-out infinite}
+body.playing .beacon-glow{animation:bglow-hot 1.2s ease-in-out infinite}
 @keyframes bglow{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes bglow-hot{0%,100%{opacity:.3;transform:scale(.8)}30%{opacity:1;transform:scale(1.25)}60%{opacity:.6;transform:scale(1.05)}80%{opacity:1;transform:scale(1.3)}}
 .orbit{position:absolute;inset:0}
 .orbit-1{animation:ospin 12s linear infinite}
 .orbit-2{animation:ospin 18s linear infinite reverse}
 .orbit-3{animation:ospin 25s linear infinite}
-body.playing .orbit-1{animation-duration:6s}
-body.playing .orbit-2{animation-duration:9s}
-body.playing .orbit-3{animation-duration:12s}
+body.playing .orbit-1{animation-duration:3s}
+body.playing .orbit-2{animation-duration:5s}
+body.playing .orbit-3{animation-duration:7s}
 @keyframes ospin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 .od{position:absolute;border-radius:50%}
 .orbit-1 .od-a{width:6px;height:6px;background:var(--gl-i);box-shadow:0 0 14px var(--gl-i);top:-3px;left:50%;margin-left:-3px}
@@ -268,40 +275,62 @@ function spawnRipple(){var r=document.createElement('div');r.className='ripple';
 
 // ═══ PLAYBACK ═══
 var audioInit=false;
-function togglePlay(){if(isPlaying){musicEl.pause();isPlaying=false;document.body.classList.remove('playing');document.getElementById('playIcon').style.display='block';document.getElementById('pauseIcon').style.display='none';document.getElementById('playBtn').classList.remove('active');subEl.textContent='Paused'}else{if(!audioInit){initAudio();audioInit=true}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();musicEl.play();isPlaying=true;document.body.classList.add('playing');document.getElementById('playIcon').style.display='none';document.getElementById('pauseIcon').style.display='block';document.getElementById('playBtn').classList.add('active');updateViz()}}
+function togglePlay(){if(isPlaying){musicEl.pause();isPlaying=false;document.body.classList.remove('playing');document.getElementById('playIcon').style.display='block';document.getElementById('pauseIcon').style.display='none';document.getElementById('playBtn').classList.remove('active');subEl.textContent='Paused';stopHotParticles()}else{if(!audioInit){initAudio();audioInit=true}if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();musicEl.play();isPlaying=true;document.body.classList.add('playing');document.getElementById('playIcon').style.display='none';document.getElementById('pauseIcon').style.display='block';document.getElementById('playBtn').classList.add('active');startHotParticles();updateViz()}}
 function seek(e){var r=e.currentTarget.getBoundingClientRect();musicEl.currentTime=(e.clientX-r.left)/r.width*(musicEl.duration||SONG_DUR)}
-musicEl.addEventListener('ended',function(){isPlaying=false;document.body.classList.remove('playing');document.getElementById('playIcon').style.display='block';document.getElementById('pauseIcon').style.display='none';document.getElementById('playBtn').classList.remove('active');subEl.textContent='Transmission complete';progEl.style.width='100%'});
+musicEl.addEventListener('ended',function(){isPlaying=false;document.body.classList.remove('playing');document.getElementById('playIcon').style.display='block';document.getElementById('pauseIcon').style.display='none';document.getElementById('playBtn').classList.remove('active');subEl.textContent='Transmission complete';progEl.style.width='100%';stopHotParticles()});
 // ═══ FLOATING PARTICLES ═══
-(function(){
-  var container=document.getElementById('particles');
-  var colors=['var(--gl-i)','var(--gl-v)','var(--gl-c)','var(--gl-b)'];
-  var rawColors=['99,102,241','139,92,246','56,189,248','74,108,247'];
-  function spawnParticle(){
-    var p=document.createElement('div');
-    var ci=Math.floor(Math.random()*rawColors.length);
-    var size=2+Math.random()*4;
-    var alpha=.15+Math.random()*.35;
-    var dur=15+Math.random()*30;
-    var dx=(Math.random()-.5)*300;
-    var dy=(Math.random()-.5)*300;
-    var isGlow=Math.random()>.6;
-    p.className='particle'+(isGlow?' glow':'');
-    p.style.cssText='width:'+size+'px;height:'+size+'px;'+
-      'left:'+(5+Math.random()*90)+'%;top:'+(5+Math.random()*90)+'%;'+
-      'background:rgba('+rawColors[ci]+','+alpha+');'+
-      'box-shadow:0 0 '+(size*2)+'px rgba('+rawColors[ci]+','+(alpha*.6)+');'+
-      '--p-alpha:'+alpha+';--p-dx:'+dx+'px;--p-dy:'+dy+'px;'+
-      'animation-duration:'+dur+'s;animation-delay:'+(Math.random()*dur)+'s;';
-    container.appendChild(p);
-  }
-  for(var i=0;i<20;i++)spawnParticle();
-  // Respawn particles that finish their cycle
-  setInterval(function(){
-    var ps=container.children;
-    if(ps.length<20)spawnParticle();
-    if(ps.length>25&&ps[0])ps[0].remove();
-  },5000);
-})();
+var pContainer=document.getElementById('particles');
+var rawColors=['99,102,241','139,92,246','56,189,248','74,108,247','120,80,255','60,160,240'];
+function spawnOrb(fast){
+  var p=document.createElement('div');
+  var ci=Math.floor(Math.random()*rawColors.length);
+  var size=fast?(2+Math.random()*6):(2+Math.random()*4);
+  var alpha=fast?(.2+Math.random()*.5):(.15+Math.random()*.35);
+  var dur=fast?(3+Math.random()*8):(15+Math.random()*30);
+  var range=fast?500:300;
+  var dx=(Math.random()-.5)*range;
+  var dy=(Math.random()-.5)*range;
+  var isGlow=fast?(Math.random()>.3):(Math.random()>.6);
+  p.className='particle'+(isGlow?' glow':'');
+  p.dataset.mode=fast?'hot':'ambient';
+  p.style.cssText='width:'+size+'px;height:'+size+'px;'+
+    'left:'+(5+Math.random()*90)+'%;top:'+(5+Math.random()*90)+'%;'+
+    'background:rgba('+rawColors[ci]+','+alpha+');'+
+    'box-shadow:0 0 '+(size*(fast?3:2))+'px rgba('+rawColors[ci]+','+(alpha*(fast?.8:.6))+');'+
+    '--p-alpha:'+alpha+';--p-dx:'+dx+'px;--p-dy:'+dy+'px;'+
+    'animation-duration:'+dur+'s;animation-delay:'+(fast?(Math.random()*2):(Math.random()*dur))+'s;';
+  pContainer.appendChild(p);
+}
+// Ambient orbs
+for(var i=0;i<20;i++)spawnOrb(false);
+// Playing state particle engine
+var hotInterval=null;
+function startHotParticles(){
+  // Burst: spawn 30 immediately
+  for(var i=0;i<30;i++)spawnOrb(true);
+  // Then keep spawning 3-5 every 400ms
+  hotInterval=setInterval(function(){
+    var hot=pContainer.querySelectorAll('[data-mode="hot"]');
+    if(hot.length<80){
+      var batch=3+Math.floor(Math.random()*3);
+      for(var j=0;j<batch;j++)spawnOrb(true);
+    }
+  },400);
+}
+function stopHotParticles(){
+  if(hotInterval){clearInterval(hotInterval);hotInterval=null}
+  // Fade out hot particles over a few seconds
+  var hots=pContainer.querySelectorAll('[data-mode="hot"]');
+  hots.forEach(function(h,i){
+    setTimeout(function(){h.remove()},i*50);
+  });
+}
+// Ambient maintenance
+setInterval(function(){
+  var ambients=pContainer.querySelectorAll('[data-mode="ambient"]');
+  if(ambients.length<20)spawnOrb(false);
+  if(ambients.length>25&&ambients[0])ambients[0].remove();
+},5000);
 
 initViz();fetchLog();setInterval(fetchLog,30000);
 </script>
