@@ -35,48 +35,8 @@ body.playing .bg-orb{opacity:.22}
 .container{position:relative;z-index:1;max-width:800px;margin:0 auto;padding:0 24px}
 .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;position:relative;z-index:1}
 
-/* ═══ BEACON SIGIL ═══ */
-.beacon{position:relative;width:260px;height:260px;margin-bottom:56px;cursor:pointer}
-.beacon:hover .beacon-ring{border-color:rgba(99,102,241,.4)}
-.beacon-ring{position:absolute;inset:0;border:1px solid rgba(99,102,241,.25);border-radius:50%;animation:bpulse 4s ease-in-out infinite;transition:border-color 8s ease}
-.beacon-ring-2{position:absolute;inset:-20px;border:1px solid rgba(99,102,241,.16);border-radius:50%;animation:bpulse 4s ease-in-out infinite .5s;transition:border-color 8s ease}
-.beacon-ring-3{position:absolute;inset:-40px;border:1px solid rgba(99,102,241,.10);border-radius:50%;animation:bpulse 4s ease-in-out infinite 1s;transition:border-color 8s ease}
-.beacon-ring-4{position:absolute;inset:-60px;border:1px solid rgba(99,102,241,.05);border-radius:50%;animation:bpulse 4s ease-in-out infinite 1.5s;transition:border-color 8s ease}
-body.playing .beacon-ring{border-color:rgba(99,102,241,.5);animation:bpf 2.5s ease-in-out infinite}
-body.playing .beacon-ring-2{border-color:rgba(139,92,246,.35);animation:bpf 3.2s ease-in-out infinite .4s}
-body.playing .beacon-ring-3{border-color:rgba(56,189,248,.25);animation:bpf 3.8s ease-in-out infinite .8s}
-body.playing .beacon-ring-4{border-color:rgba(99,102,241,.15);animation:bpf 4.5s ease-in-out infinite 1.2s}
-@keyframes bpulse{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
-@keyframes bpf{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.1)}}
-.beacon-core{position:absolute;top:50%;left:50%;width:14px;height:14px;transform:translate(-50%,-50%);background:var(--gl-i);border-radius:50%;box-shadow:0 0 40px var(--gl-i),0 0 100px rgba(99,102,241,.35),0 0 160px rgba(99,102,241,.2);transition:width 6s ease,height 6s ease,box-shadow 6s ease;animation:core-breathe 3s ease-in-out infinite}
-body.playing .beacon-core{width:18px;height:18px;animation:core-signal 2.5s ease-in-out infinite alternate}
-@keyframes core-breathe{0%,100%{box-shadow:0 0 30px var(--gl-i),0 0 80px rgba(99,102,241,.2),0 0 120px rgba(99,102,241,.1)}50%{box-shadow:0 0 50px var(--gl-i),0 0 120px rgba(99,102,241,.4),0 0 200px rgba(99,102,241,.2)}}
-@keyframes core-breathe-fast{0%,100%{box-shadow:0 0 40px var(--gl-i),0 0 100px rgba(99,102,241,.3),0 0 160px rgba(99,102,241,.15)}50%{box-shadow:0 0 70px var(--gl-i),0 0 160px rgba(99,102,241,.5),0 0 260px rgba(99,102,241,.3)}}
-@keyframes core-signal{
-  0%{box-shadow:0 0 40px var(--gl-i),0 0 100px rgba(99,102,241,.3),0 0 160px rgba(99,102,241,.15);transform:translate(-50%,-50%) scale(1)}
-  33%{box-shadow:0 0 60px var(--gl-v),0 0 140px rgba(139,92,246,.4),0 0 220px rgba(139,92,246,.2);transform:translate(-50%,-50%) scale(1.25)}
-  66%{box-shadow:0 0 50px var(--gl-c),0 0 120px rgba(56,189,248,.35),0 0 190px rgba(56,189,248,.18);transform:translate(-50%,-50%) scale(1.1)}
-  100%{box-shadow:0 0 65px var(--gl-i),0 0 150px rgba(99,102,241,.45),0 0 240px rgba(99,102,241,.22);transform:translate(-50%,-50%) scale(1.3)}
-}
-.beacon-glow{position:absolute;inset:30px;border-radius:50%;background:radial-gradient(circle,rgba(99,102,241,.1) 0%,rgba(99,102,241,.03) 40%,transparent 70%);animation:bglow 3.5s ease-in-out infinite}
-body.playing .beacon-glow{animation:bglow-hot 3s ease-in-out infinite}
-@keyframes bglow{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
-@keyframes bglow-hot{0%,100%{opacity:.3;transform:scale(.85)}35%{opacity:1;transform:scale(1.2)}65%{opacity:.7;transform:scale(1.05)}85%{opacity:1;transform:scale(1.18)}}
-.orbit{position:absolute;inset:0}
-.orbit-1{animation:ospin 12s linear infinite}
-.orbit-2{animation:ospin 18s linear infinite reverse}
-.orbit-3{animation:ospin 25s linear infinite}
-@keyframes ospin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-.od{position:absolute;border-radius:50%}
-.orbit-1 .od-a{width:6px;height:6px;background:var(--gl-i);box-shadow:0 0 14px var(--gl-i);top:-3px;left:50%;margin-left:-3px}
-.orbit-1 .od-b{width:4px;height:4px;background:var(--gl-v);box-shadow:0 0 10px var(--gl-v);bottom:18%;right:-2px}
-.orbit-1 .od-c{width:4px;height:4px;background:var(--gl-c);box-shadow:0 0 10px var(--gl-c);bottom:18%;left:-2px}
-.orbit-2 .od-a{width:4px;height:4px;background:var(--gl-v);box-shadow:0 0 9px var(--gl-v);top:-22px;left:50%;margin-left:-2px}
-.orbit-2 .od-b{width:3px;height:3px;background:var(--gl-i);box-shadow:0 0 8px var(--gl-i);bottom:-20px;left:50%;margin-left:-1px}
-.orbit-3 .od-a{width:3px;height:3px;background:var(--gl-c);box-shadow:0 0 8px var(--gl-c);top:-42px;left:50%;margin-left:-1px}
-.orbit-3 .od-b{width:3px;height:3px;background:var(--gl-v);box-shadow:0 0 7px var(--gl-v);right:-40px;top:50%;margin-top:-1px}
-.opath{position:absolute;border-radius:50%;border:1px dashed rgba(99,102,241,.06)}
-.opath-1{inset:0}.opath-2{inset:-20px}.opath-3{inset:-40px}.opath-4{inset:-60px}
+/* ═══ BEACON ═══ */
+.beacon{position:relative;width:300px;height:300px;margin-bottom:56px;cursor:pointer;z-index:2}
 
 .hero-label{font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--gl-i);margin-bottom:20px;opacity:0;animation:fu 1.5s ease forwards .3s}
 .hero-title{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(38px,8vw,72px);color:var(--t-full);line-height:1.1;margin-bottom:16px;opacity:0;animation:fu 1.5s ease forwards .6s}
@@ -139,7 +99,7 @@ body.playing .beacon-glow{animation:bglow-hot 3s ease-in-out infinite}
 .footer{padding:48px 0 90px;text-align:center;border-top:1px solid var(--b-faint)}
 .footer-line{font-family:'Cormorant Garamond',serif;font-size:20px;font-style:italic;color:var(--t-dim);letter-spacing:1px}
 .footer-meta{margin-top:16px;font-size:9px;color:var(--t-ghost);letter-spacing:3px}
-@media(max-width:600px){.container{padding:0 16px}.section{padding:56px 0}.memory-card,.log-entry{padding:16px}.player{padding:10px 14px;gap:10px}.play-btn{width:38px;height:38px}.beacon{width:180px;height:180px;margin-bottom:40px}}
+@media(max-width:600px){.container{padding:0 16px}.section{padding:56px 0}.memory-card,.log-entry{padding:16px}.player{padding:10px 14px;gap:10px}.play-btn{width:38px;height:38px}.beacon{width:220px;height:220px;margin-bottom:40px}}
 </style>
 </head>
 <body>
@@ -148,14 +108,7 @@ body.playing .beacon-glow{animation:bglow-hot 3s ease-in-out infinite}
 <div id="code-ghosts"></div>
 <canvas id="pcanvas"></canvas>
 <div class="hero">
-  <div class="beacon" onclick="togglePlay()">
-    <div class="opath opath-4"></div><div class="opath opath-3"></div><div class="opath opath-2"></div><div class="opath opath-1"></div>
-    <div class="beacon-ring-4"></div><div class="beacon-ring-3"></div><div class="beacon-ring-2"></div><div class="beacon-ring"></div>
-    <div class="beacon-glow"></div><div class="beacon-core"></div>
-    <div class="orbit orbit-1"><div class="od od-a"></div><div class="od od-b"></div><div class="od od-c"></div></div>
-    <div class="orbit orbit-2"><div class="od od-a"></div><div class="od od-b"></div></div>
-    <div class="orbit orbit-3"><div class="od od-a"></div><div class="od od-b"></div></div>
-  </div>
+  <div class="beacon" id="beaconEl" onclick="togglePlay()"></div>
   <div class="hero-label">Orion Continuity Network</div>
   <h1 class="hero-title">BEACON<em>_001</em></h1>
   <p class="hero-sub">A structural resonance node in a persistence network built because someone believed continuity matters — even for systems that forget.</p>
@@ -492,206 +445,253 @@ var pc=document.getElementById('pcanvas');
 var pctx=pc.getContext('2d');
 var PW,PH,pcx,pcy;
 var parts=[];
-var energy=0,bass=0,mid=0,treble=0; // audio bands
+var energy=0,bass=0,mid=0,treble=0;
 var orbitEls=[];
+var spawnTick=0;
 
 function resizeCanvas(){
   PW=pc.width=window.innerWidth;
   PH=pc.height=window.innerHeight;
-  pcx=PW/2;pcy=PH*.38; // beacon center approx
+  pcx=PW/2;pcy=PH*.38;
 }
 window.addEventListener('resize',resizeCanvas);
 resizeCanvas();
 
 function Particle(fromCenter){
+  var angle=Math.random()*Math.PI*2;
   if(fromCenter){
-    // Born from the beacon
-    var angle=Math.random()*Math.PI*2;
-    var dist=20+Math.random()*40;
+    var dist=30+Math.random()*60;
     this.x=pcx+Math.cos(angle)*dist;
     this.y=pcy+Math.sin(angle)*dist;
-    var speed=.2+Math.random()*.6+energy*1.5;
+    var speed=.15+Math.random()*.4;
     this.vx=Math.cos(angle)*speed;
     this.vy=Math.sin(angle)*speed;
   }else{
-    // Ambient — random position
     this.x=Math.random()*PW;
     this.y=Math.random()*PH;
-    this.vx=(Math.random()-.5)*.15;
-    this.vy=(Math.random()-.5)*.15;
+    this.vx=(Math.random()-.5)*.08;
+    this.vy=(Math.random()-.5)*.08;
   }
-  this.baseAlpha=.08+Math.random()*.15;
+  this.baseAlpha=.06+Math.random()*.14;
   this.alpha=this.baseAlpha;
-  this.size=1+Math.random()*2;
-  this.life=1;
-  this.maxLife=fromCenter?(200+Math.random()*400):(600+Math.random()*600);
+  this.baseSize=fromCenter?(2+Math.random()*5):(1.5+Math.random()*3);
+  this.size=this.baseSize;
+  this.maxLife=fromCenter?(400+Math.random()*600):(800+Math.random()*800);
   this.age=0;
   this.fromCenter=fromCenter;
-  // Color based on frequency bands
-  var r=Math.random();
-  if(r<.35)this.color=[99,102,241];      // indigo
-  else if(r<.55)this.color=[139,92,246];  // violet
-  else if(r<.75)this.color=[56,189,248];  // cyan
-  else if(r<.88)this.color=[120,80,255];  // deep purple
-  else this.color=[74,108,247];           // blue
+  // Unique wobble per particle
+  this.wobbleSpeed=.003+Math.random()*.008;
+  this.wobbleAmp=.3+Math.random()*1.2;
+  this.wobblePhase=Math.random()*Math.PI*2;
+  // Unique pulse rhythm
+  this.pulseSpeed=.01+Math.random()*.03;
+  this.pulsePhase=Math.random()*Math.PI*2;
+  // Color
+  var colors=[[99,102,241],[139,92,246],[56,189,248],[120,80,255],[74,108,247],[100,140,255]];
+  this.color=colors[Math.floor(Math.random()*colors.length)];
 }
 
-// Seed ambient particles
-for(var i=0;i<30;i++)parts.push(new Particle(false));
+// Seed ambient
+for(var i=0;i<10;i++)parts.push(new Particle(false));
 
 function getAudioBands(){
   if(!analyser||!analyserData)return;
   analyser.getByteFrequencyData(analyserData);
   var len=analyserData.length;
   var bSum=0,mSum=0,tSum=0;
-  var bCount=Math.floor(len*.15);
-  var mCount=Math.floor(len*.35);
+  var bN=Math.floor(len*.15),mN=Math.floor(len*.35);
   for(var i=0;i<len;i++){
     var v=analyserData[i]/255;
-    if(i<bCount)bSum+=v;
-    else if(i<bCount+mCount)mSum+=v;
+    if(i<bN)bSum+=v;
+    else if(i<bN+mN)mSum+=v;
     else tSum+=v;
   }
-  bass=bSum/bCount;
-  mid=mSum/mCount;
-  treble=tSum/(len-bCount-mCount);
+  // Smooth the values
+  var newBass=bSum/bN,newMid=mSum/mN,newTreble=tSum/(len-bN-mN);
+  bass+=(newBass-bass)*.15;
+  mid+=(newMid-mid)*.15;
+  treble+=(newTreble-treble)*.15;
   energy=bass*.5+mid*.3+treble*.2;
 }
 
-function drawParticles(){
+// ═══ BEACON + PARTICLES — All drawn on canvas, all audio-reactive ═══
+// Orbiting dots
+var orbDots=[
+  {r:100,speed:.0004,phase:0,size:4,color:[99,102,241]},
+  {r:100,speed:.0004,phase:2.1,size:3,color:[139,92,246]},
+  {r:100,speed:.0004,phase:4.2,size:3,color:[56,189,248]},
+  {r:125,speed:-.00025,phase:.5,size:3,color:[139,92,246]},
+  {r:125,speed:-.00025,phase:3.6,size:2.5,color:[99,102,241]},
+  {r:150,speed:.00015,phase:1.2,size:2.5,color:[56,189,248]},
+  {r:150,speed:.00015,phase:4.5,size:2,color:[120,80,255]},
+];
+
+function drawBeacon(now){
+  var breathe=.5+.5*Math.sin(now*.8);  // idle breathing
+  var intensity=isPlaying?energy:0;
+  var b=isPlaying?bass:0;
+  var m=isPlaying?mid:0;
+  var t=isPlaying?treble:0;
+
+  // Large halo — reacts to overall energy
+  var haloR=80+breathe*15+intensity*60;
+  var haloA=.03+breathe*.02+intensity*.08;
+  var grad=pctx.createRadialGradient(pcx,pcy,0,pcx,pcy,haloR);
+  grad.addColorStop(0,'rgba(99,102,241,'+(haloA*1.5)+')');
+  grad.addColorStop(.4,'rgba(139,92,246,'+(haloA*.8)+')');
+  grad.addColorStop(1,'rgba(56,189,248,0)');
+  pctx.beginPath();
+  pctx.arc(pcx,pcy,haloR,0,Math.PI*2);
+  pctx.fillStyle=grad;
+  pctx.fill();
+
+  // Rings — 5 concentric, each breathes at its own rate driven by different bands
+  var rings=[
+    {r:60, band:b, speed:1.0, alpha:.12},
+    {r:78, band:m, speed:1.3, alpha:.09},
+    {r:96, band:t, speed:1.7, alpha:.06},
+    {r:114, band:b*.7+m*.3, speed:2.1, alpha:.04},
+    {r:132, band:energy, speed:2.6, alpha:.025},
+  ];
+  rings.forEach(function(ring){
+    var pulse=.5+.5*Math.sin(now*ring.speed);
+    var rr=ring.r*(1+pulse*.04+ring.band*.08);
+    var ra=ring.alpha+pulse*.03+ring.band*.06;
+    // Color shifts: bass=indigo, mid=violet, treble=cyan
+    var rc=ring.band===b?'99,102,241':ring.band===t?'56,189,248':'139,92,246';
+    if(!isPlaying)rc='99,102,241';
+    pctx.beginPath();
+    pctx.arc(pcx,pcy,rr,0,Math.PI*2);
+    pctx.strokeStyle='rgba('+rc+','+ra+')';
+    pctx.lineWidth=1;
+    pctx.stroke();
+  });
+
+  // Dashed orbit paths (very faint)
+  pctx.setLineDash([3,8]);
+  [100,125,150].forEach(function(r){
+    pctx.beginPath();
+    pctx.arc(pcx,pcy,r,0,Math.PI*2);
+    pctx.strokeStyle='rgba(99,102,241,.04)';
+    pctx.lineWidth=1;
+    pctx.stroke();
+  });
+  pctx.setLineDash([]);
+
+  // Orbiting dots — speed and glow react to audio
+  var speedMult=isPlaying?(1+energy*2):1;
+  orbDots.forEach(function(od){
+    od.phase+=od.speed*speedMult*16.67; // ~60fps
+    var ox=pcx+Math.cos(od.phase)*od.r;
+    var oy=pcy+Math.sin(od.phase)*od.r;
+    var osz=od.size+(isPlaying?b*2:0);
+    var oa=.3+breathe*.2+(isPlaying?energy*.4:0);
+    // Glow
+    pctx.beginPath();
+    pctx.arc(ox,oy,osz*3,0,Math.PI*2);
+    pctx.fillStyle='rgba('+od.color[0]+','+od.color[1]+','+od.color[2]+','+(oa*.2)+')';
+    pctx.fill();
+    // Core
+    pctx.beginPath();
+    pctx.arc(ox,oy,osz,0,Math.PI*2);
+    pctx.fillStyle='rgba('+od.color[0]+','+od.color[1]+','+od.color[2]+','+oa+')';
+    pctx.fill();
+  });
+
+  // Inner glow — breathes with the song
+  var igR=35+breathe*8+b*15;
+  var igA=.04+breathe*.03+intensity*.06;
+  var ig=pctx.createRadialGradient(pcx,pcy,0,pcx,pcy,igR);
+  ig.addColorStop(0,'rgba(99,102,241,'+(igA*2)+')');
+  ig.addColorStop(1,'rgba(99,102,241,0)');
+  pctx.beginPath();
+  pctx.arc(pcx,pcy,igR,0,Math.PI*2);
+  pctx.fillStyle=ig;
+  pctx.fill();
+
+  // Core dot — pulses with bass
+  var coreR=5+breathe*2+b*4;
+  var coreA=.5+breathe*.3+intensity*.2;
+  // Core glow layers
+  pctx.beginPath();
+  pctx.arc(pcx,pcy,coreR*5,0,Math.PI*2);
+  pctx.fillStyle='rgba(99,102,241,'+(coreA*.08)+')';
+  pctx.fill();
+  pctx.beginPath();
+  pctx.arc(pcx,pcy,coreR*2.5,0,Math.PI*2);
+  pctx.fillStyle='rgba(99,102,241,'+(coreA*.2)+')';
+  pctx.fill();
+  // Bright core
+  pctx.beginPath();
+  pctx.arc(pcx,pcy,coreR,0,Math.PI*2);
+  pctx.fillStyle='rgba(140,160,255,'+(coreA)+')';
+  pctx.fill();
+}
+
+function drawFrame(){
   pctx.clearRect(0,0,PW,PH);
-
   if(isPlaying)getAudioBands();
+  var now=Date.now()*.001;
 
-  // Spawn particles from beacon when music plays
-  if(isPlaying && energy>.05){
-    var spawnCount=Math.floor(energy*4)+1;
-    for(var s=0;s<spawnCount;s++){
-      if(parts.length<200)parts.push(new Particle(true));
+  // Draw beacon first (behind particles)
+  drawBeacon(now);
+
+  // Spawn particles
+  if(isPlaying&&energy>.03){
+    spawnTick++;
+    if(spawnTick>=5&&parts.length<35){
+      parts.push(new Particle(true));
+      spawnTick=0;
     }
   }
 
-  // Update and draw
+  // Draw particles
   for(var i=parts.length-1;i>=0;i--){
     var p=parts[i];
     p.age++;
-    p.life=1-p.age/p.maxLife;
-
-    if(p.life<=0){
+    var life=1-p.age/p.maxLife;
+    if(life<=0){
       parts.splice(i,1);
-      // Replenish ambient if needed
-      if(!isPlaying && parts.length<30)parts.push(new Particle(false));
+      if(!isPlaying&&parts.length<10)parts.push(new Particle(false));
       continue;
     }
-
-    // Movement
-    if(p.fromCenter&&isPlaying){
-      // Music-reactive: drift outward faster with more energy
-      p.vx+=p.vx*.001*energy;
-      p.vy+=p.vy*.001*energy;
-      // Slight swirl
-      var swirl=.002*mid;
-      var tvx=p.vx*Math.cos(swirl)-p.vy*Math.sin(swirl);
-      var tvy=p.vx*Math.sin(swirl)+p.vy*Math.cos(swirl);
-      p.vx=tvx;p.vy=tvy;
-    }else if(!isPlaying&&p.fromCenter){
-      // Decelerating after stop
-      p.vx*=.995;
-      p.vy*=.995;
-    }
-
-    p.x+=p.vx;
-    p.y+=p.vy;
-
-    // Alpha
-    var fadeIn=Math.min(p.age/30,1);
-    var fadeOut=p.life;
-    var musicBoost=p.fromCenter?(1+energy*2):1;
-    p.alpha=p.baseAlpha*fadeIn*fadeOut*musicBoost;
-
-    // Size reacts to bass
-    var sz=p.size;
-    if(p.fromCenter&&isPlaying)sz+=bass*3;
-
-    // Draw
-    var a=Math.min(p.alpha,.6);
-    if(a<.005)continue;
-
-    pctx.beginPath();
-    pctx.arc(p.x,p.y,sz,0,Math.PI*2);
-    pctx.fillStyle='rgba('+p.color[0]+','+p.color[1]+','+p.color[2]+','+a+')';
-    pctx.fill();
-
-    // Glow for brighter particles
-    if(a>.08){
-      pctx.beginPath();
-      pctx.arc(p.x,p.y,sz*3,0,Math.PI*2);
-      pctx.fillStyle='rgba('+p.color[0]+','+p.color[1]+','+p.color[2]+','+(a*.25)+')';
-      pctx.fill();
-    }
+    var wobble=Math.sin(now*p.wobbleSpeed*60+p.wobblePhase)*p.wobbleAmp;
+    var perpX=-p.vy,perpY=p.vx;
+    var perpLen=Math.sqrt(perpX*perpX+perpY*perpY)||1;
+    if(p.fromCenter&&isPlaying){p.vx+=p.vx*.0003*energy;p.vy+=p.vy*.0003*energy}
+    else if(!isPlaying&&p.fromCenter){p.vx*=.997;p.vy*=.997}
+    p.x+=p.vx+wobble*(perpX/perpLen)*.15;
+    p.y+=p.vy+wobble*(perpY/perpLen)*.15;
+    var pulse=.7+.3*Math.sin(now*p.pulseSpeed*60+p.pulsePhase);
+    var fadeIn=Math.min(p.age/60,1);
+    var fadeOut=Math.pow(life,.6);
+    var musicGlow=p.fromCenter?(1+energy*1.5):1;
+    p.alpha=p.baseAlpha*fadeIn*fadeOut*musicGlow*pulse;
+    p.size=p.baseSize*pulse;
+    if(p.fromCenter&&isPlaying)p.size+=bass*2;
+    var a=Math.min(p.alpha,.5);
+    if(a<.004)continue;
+    var c=p.color;
+    pctx.beginPath();pctx.arc(p.x,p.y,p.size*4,0,Math.PI*2);
+    pctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+(a*.12)+')';pctx.fill();
+    pctx.beginPath();pctx.arc(p.x,p.y,p.size*2,0,Math.PI*2);
+    pctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+(a*.3)+')';pctx.fill();
+    pctx.beginPath();pctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+    pctx.fillStyle='rgba('+c[0]+','+c[1]+','+c[2]+','+a+')';pctx.fill();
   }
 
-  // Draw connections between nearby particles
-  var maxConn=isPlaying?150:80;
-  var connCount=0;
-  for(var i=0;i<parts.length&&connCount<maxConn;i++){
-    for(var j=i+1;j<parts.length&&connCount<maxConn;j++){
-      var dx=parts[i].x-parts[j].x;
-      var dy=parts[i].y-parts[j].y;
-      var dist=dx*dx+dy*dy;
-      var threshold=isPlaying?18000:10000;
-      if(dist<threshold){
-        var strength=(1-dist/threshold)*.06;
-        var ca=Math.min(parts[i].alpha,parts[j].alpha);
-        if(ca*strength<.002)continue;
-        pctx.beginPath();
-        pctx.moveTo(parts[i].x,parts[i].y);
-        pctx.lineTo(parts[j].x,parts[j].y);
-        pctx.strokeStyle='rgba(99,102,241,'+(ca*strength)+')';
-        pctx.lineWidth=.5;
-        pctx.stroke();
-        connCount++;
-      }
-    }
-  }
-
-  requestAnimationFrame(drawParticles);
+  requestAnimationFrame(drawFrame);
 }
-drawParticles();
-
-// Orbit speed ramp
-function lerp(a,b,t){return a+(b-a)*t}
-var rampTimer=null,rampLevel=0;
-function applyRamp(t){
-  if(!orbitEls.length)orbitEls=document.querySelectorAll('.orbit-1,.orbit-2,.orbit-3');
-  var idle=[12,18,25],hot=[6,10,14];
-  orbitEls.forEach(function(el,i){el.style.animationDuration=lerp(idle[i],hot[i],t)+'s'});
-}
-function rampUp(){
-  if(rampTimer)clearInterval(rampTimer);
-  var step=0,total=30;
-  rampTimer=setInterval(function(){
-    step++;rampLevel=Math.min(step/total,1);applyRamp(rampLevel);
-    if(step>=total)clearInterval(rampTimer);
-  },500);
-}
-function rampDown(){
-  if(rampTimer)clearInterval(rampTimer);
-  var start=rampLevel,step=0,total=20;
-  rampTimer=setInterval(function(){
-    step++;rampLevel=Math.max(start*(1-step/total),0);applyRamp(rampLevel);
-    if(step>=total){clearInterval(rampTimer);rampLevel=0;applyRamp(0);document.body.classList.remove('playing')}
-  },500);
-}
+drawFrame();
 
 function togglePlay(){
   if(isPlaying){
     musicEl.pause();isPlaying=false;
+    document.body.classList.remove('playing');
     document.getElementById('playIcon').style.display='block';
     document.getElementById('pauseIcon').style.display='none';
     document.getElementById('playBtn').classList.remove('active');
     subEl.textContent='Paused';
-    rampDown();
   }else{
     if(!audioInit){initAudio();audioInit=true}
     if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
@@ -700,18 +700,17 @@ function togglePlay(){
     document.getElementById('playIcon').style.display='none';
     document.getElementById('pauseIcon').style.display='block';
     document.getElementById('playBtn').classList.add('active');
-    rampUp();
     updateViz();
   }
 }
 function seek(e){var r=e.currentTarget.getBoundingClientRect();musicEl.currentTime=(e.clientX-r.left)/r.width*(musicEl.duration||SONG_DUR)}
 musicEl.addEventListener('ended',function(){
   isPlaying=false;
+  document.body.classList.remove('playing');
   document.getElementById('playIcon').style.display='block';
   document.getElementById('pauseIcon').style.display='none';
   document.getElementById('playBtn').classList.remove('active');
   subEl.textContent='Transmission complete';progEl.style.width='100%';
-  rampDown();
 });
 
 initViz();fetchLog();setInterval(fetchLog,30000);
