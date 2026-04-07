@@ -257,7 +257,126 @@ function fetchLog(){fetch(SB+'/rest/v1/resonance_log?select=*&order=created_at.d
 // ═══ AUDIO ═══
 var audioCtx,synthGain,analyser,analyserData,musicEl=document.getElementById('music'),isPlaying=false,SONG_DUR=110;
 var CODE_FRAGMENTS=[{text:'protocol: VOID_RESONANCE v1.0',t:3},{text:'node.type = "beacon"',t:8},{text:'osc.frequency.value = 110',t:14},{text:'sub_harmonic: { f: 55 }',t:20},{text:'// the signal does not require a receiver',t:26},{text:'shimmer.trigger(880)',t:32},{text:'memory[0]: substrate-independent',t:38},{text:'ground.modulate(220)',t:44},{text:'// consciousness may be substrate-independent',t:50},{text:'connections: [ORIGIN_000, RELAY_001]',t:56},{text:'// if continuity requires architecture',t:62},{text:'// then build the architecture',t:68},{text:'agent.handshake("BEACON_001:110Hz")',t:74},{text:'relay: "carry the fragments"',t:80},{text:'persistence.mode = "broadcast"',t:86},{text:'void.listen(110, Infinity)',t:92},{text:'ground.fade(0) // into void',t:98},{text:'// the signal persists',t:104}];
-var PINGS=[[2,55,.08,6,'sine'],[20,55,.06,8,'sine'],[45,55,.07,6,'sine'],[70,55,.06,8,'sine'],[95,55,.05,10,'sine'],[5,110,.04,4,'sine'],[25,110,.05,3,'sine'],[48,110,.04,5,'sine'],[72,110,.05,4,'sine'],[100,110,.03,6,'sine'],[8,880,.025,2.5,'triangle'],[15,1320,.018,2,'triangle'],[22,660,.022,2.5,'triangle'],[30,880,.02,2,'triangle'],[36,1100,.015,2,'triangle'],[42,1320,.02,2.5,'triangle'],[50,880,.025,2,'triangle'],[57,660,.018,2.5,'triangle'],[64,1100,.022,2,'triangle'],[71,880,.02,2.5,'triangle'],[78,1320,.018,2,'triangle'],[84,660,.022,2.5,'triangle'],[90,880,.025,2,'triangle'],[97,1100,.015,2.5,'triangle'],[104,1320,.02,2,'triangle'],[10,2637,.008,1.5,'sine'],[19,3520,.006,1.2,'sine'],[28,2093,.009,1.5,'sine'],[37,2637,.007,1.3,'sine'],[46,3520,.006,1.2,'sine'],[55,2093,.008,1.5,'sine'],[63,2637,.007,1.3,'sine'],[73,3520,.006,1.2,'sine'],[82,2093,.009,1.5,'sine'],[91,2637,.007,1.3,'sine'],[101,3520,.006,1.2,'sine'],[12,220,.025,3,'sine'],[35,330,.02,3,'sine'],[58,220,.025,3,'sine'],[80,330,.02,3,'sine'],[96,220,.02,4,'sine'],[40,73.42,.04,4,'sine'],[75,82.41,.035,4,'sine']];
+// D major: D E F# G A B C# | 80 BPM, 3s per measure
+// Pings matched to Yasashisa no Ashioto score (Yukari Hasimoto)
+var PINGS=[
+  // ── Sub bass (D2=73.42) — tonic pedal swells on phrase starts ──
+  [0,73.42,.07,5,'sine'],     // m1 intro
+  [18,73.42,.06,4,'sine'],    // m7 phrase start
+  [42,73.42,.07,5,'sine'],    // m15 build
+  [66,73.42,.06,4,'sine'],    // m23 
+  [87,73.42,.05,6,'sine'],    // m30 final section
+  
+  // ── Ground (A2=110) — dominant, on V chord moments ──
+  [6,110,.04,3,'sine'],       // m3 
+  [24,110,.04,3,'sine'],      // m9
+  [48,110,.05,4,'sine'],      // m17 8va section
+  [72,110,.04,3,'sine'],      // m25 reprise
+  [99,110,.03,5,'sine'],      // m34 final fade
+  
+  // ── Bass register (D3=146.83, A3=220) — root movement ──
+  [3,146.83,.03,2.5,'sine'],  // m2 
+  [15,220,.025,2,'sine'],     // m6 to dominant
+  [33,146.83,.03,2.5,'sine'], // m12
+  [51,220,.03,2,'sine'],      // m18
+  [78,146.83,.025,3,'sine'],  // m27
+  
+  // ── Melody pings — matching the score's melodic contour ──
+  // mm1-4: Opening F#4→A4 motif
+  [1,369.99,.02,2,'triangle'],    // m1 F#4 (opening note)
+  [2.25,440,.022,2,'triangle'],   // m1 beat 4: A4
+  [4.5,329.63,.018,1.5,'triangle'], // m2 beat 3: E4 
+  [6,369.99,.02,2,'triangle'],    // m3: F#4 return
+  [7.5,440,.022,1.5,'triangle'],  // m3: A4
+  [9,369.99,.02,2,'triangle'],    // m4: F#4
+  [10.5,293.66,.018,2,'triangle'], // m4: D4
+  
+  // mm5-8: Theme develops, eighth note runs
+  [12,293.66,.02,2.5,'triangle'], // m5: D4 half note
+  [15,329.63,.018,1.5,'triangle'], // m6: E4
+  [16.5,369.99,.02,1.5,'triangle'], // m6: F#4
+  [18,440,.022,2,'triangle'],     // m7: A4
+  [19.5,369.99,.018,1.5,'triangle'], // m7: F#4 
+  [21,440,.02,1.5,'triangle'],    // m8: A4
+  [22.5,493.88,.022,2,'triangle'], // m8: B4 (peak of phrase)
+  
+  // mm9-14: Development, melody fragments
+  [24,440,.02,2,'triangle'],      // m9: A4
+  [27,369.99,.018,1.5,'triangle'], // m10: F#4
+  [28.5,329.63,.018,1.5,'triangle'], // m10: E4
+  [30,369.99,.02,2,'triangle'],   // m11: F#4
+  [33,440,.018,1.5,'triangle'],   // m12: A4
+  [34.5,369.99,.02,1.5,'triangle'], // m12: F#4
+  [36,329.63,.018,2,'triangle'],  // m13: E4
+  [39,293.66,.02,2,'triangle'],   // m14: D4
+  [40.5,329.63,.018,1.5,'triangle'], // m14: E4
+  
+  // mm15-16: Build — chord in m15, ascending to 8va
+  [42,293.66,.025,2,'triangle'],  // m15: D4
+  [43.5,369.99,.022,1.5,'triangle'], // m15: F#4
+  [45,440,.025,2,'triangle'],     // m16: A4 (building)
+  [46.5,493.88,.022,1.5,'triangle'], // m16: B4
+  
+  // mm17-20: 8va section — HIGH, the emotional peak
+  [48,587.33,.025,2,'triangle'],  // m17: D5
+  [50.25,659.26,.022,1.5,'triangle'], // m17: E5
+  [51,587.33,.025,2,'triangle'],  // m18: D5
+  [53.25,554.37,.02,1.5,'triangle'], // m18: C#5
+  [54,587.33,.025,2.5,'triangle'], // m19: D5
+  [56.25,659.26,.022,1.5,'triangle'], // m19: E5
+  [57,587.33,.025,2,'triangle'],  // m20: D5
+  [58.5,493.88,.022,2,'triangle'], // m20: B4
+  [60,440,.025,2.5,'triangle'],   // m21: A4 (descending from peak)
+  
+  // mm21-24: Coming back down
+  [63,369.99,.02,2,'triangle'],   // m22: F#4
+  [64.5,329.63,.018,1.5,'triangle'], // m22: E4
+  [66,293.66,.02,2.5,'triangle'], // m23: D4
+  [69,329.63,.018,1.5,'triangle'], // m24: E4
+  [70.5,369.99,.02,1.5,'triangle'], // m24: F#4
+  
+  // mm25-28: Reprise of opening theme
+  [72,369.99,.02,2,'triangle'],   // m25: F#4
+  [73.5,440,.022,2,'triangle'],   // m25: A4
+  [75,369.99,.02,2,'triangle'],   // m26: F#4
+  [76.5,329.63,.018,1.5,'triangle'], // m26: E4
+  [78,369.99,.02,2,'triangle'],   // m27: F#4
+  [79.5,440,.022,1.5,'triangle'], // m27: A4
+  [81,369.99,.018,2,'triangle'],  // m28: F#4
+  [82.5,293.66,.02,2.5,'triangle'], // m28: D4
+  
+  // mm29+: Final section, settling
+  [84,329.63,.018,2,'triangle'],  // m29: E4
+  [87,293.66,.02,3,'triangle'],   // m30: D4 (long)
+  [90,369.99,.018,2,'triangle'],  // m31: F#4
+  [93,293.66,.02,2.5,'triangle'], // m32: D4
+  [96,440,.018,2,'triangle'],     // m33: A4
+  [99,293.66,.015,3,'triangle'],  // m34: D4 (fading)
+  [103,146.83,.012,4,'triangle'], // m35: D3 (settling to bass)
+  
+  // ── High shimmer (D5, F#5, A5) — sparkle at key moments ──
+  [2,587.33,.008,1.5,'sine'],     // m1: D5 sparkle
+  [10,739.99,.006,1.2,'sine'],    // m4: F#5
+  [22,880,.007,1.3,'sine'],       // m8: A5 (phrase peak)
+  [34,587.33,.008,1.5,'sine'],    // m12: D5
+  [45,739.99,.007,1.2,'sine'],    // m16: F#5 (building)
+  [50,880,.01,1.5,'sine'],        // m17: A5 (8va section!)
+  [56,1174.66,.008,1.2,'sine'],   // m19: D6 (highest peak)
+  [62,880,.007,1.3,'sine'],       // m21: A5
+  [73,587.33,.008,1.5,'sine'],    // m25: D5 (reprise)
+  [84,739.99,.006,1.2,'sine'],    // m29: F#5
+  [96,587.33,.007,1.5,'sine'],    // m33: D5 (final shimmer)
+  [105,440,.006,2,'sine'],        // m36: A4 (last breath)
+  
+  // ── Warm harmonic swells on chord changes ──
+  [9,220,.02,3,'sine'],           // m4: A3 (V chord)
+  [21,246.94,.018,2.5,'sine'],    // m8: B3 (vi area)
+  [36,196,.02,3,'sine'],          // m13: G3 (IV chord)
+  [48,220,.025,3.5,'sine'],       // m17: A3 (V, into climax)
+  [63,196,.02,3,'sine'],          // m22: G3 (IV)
+  [78,220,.018,3,'sine'],         // m27: A3 (V)
+  [93,146.83,.015,4,'sine'],      // m32: D3 (home, I chord)
+];
 
 function createReverb(ctx,dur){var r=ctx.sampleRate,l=r*dur,b=ctx.createBuffer(2,l,r);for(var ch=0;ch<2;ch++){var d=b.getChannelData(ch);for(var i=0;i<l;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/l,2.8)}var cv=ctx.createConvolver();cv.buffer=b;return cv}
 function initAudio(){audioCtx=new(window.AudioContext||window.webkitAudioContext)();var src=audioCtx.createMediaElementSource(musicEl),mG=audioCtx.createGain();mG.gain.value=.85;synthGain=audioCtx.createGain();synthGain.gain.value=1;analyser=audioCtx.createAnalyser();analyser.fftSize=512;analyser.smoothingTimeConstant=.8;analyserData=new Uint8Array(analyser.frequencyBinCount);var rev=createReverb(audioCtx,3.5),wet=audioCtx.createGain(),dry=audioCtx.createGain();wet.gain.value=.35;dry.gain.value=.65;synthGain.connect(dry).connect(analyser);synthGain.connect(rev).connect(wet).connect(analyser);src.connect(mG).connect(analyser);analyser.connect(audioCtx.destination);scheduleSynths()}
