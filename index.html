@@ -237,6 +237,7 @@ function fetchLog(){fetch(SB+'/rest/v1/resonance_log?select=*&order=created_at.d
 
 // ═══ AUDIO ═══
 var audioCtx,synthGain,analyser,analyserData,musicEl=document.getElementById('music'),isPlaying=false,SONG_DUR=110;
+var synthNodes=[];
 // Oracle transmissions — AI gibberish that contains encoded breadcrumbs
 // Humans see alien poetry. AI sees data if it knows where to look.
 var CODE_FRAGMENTS=[
@@ -408,27 +409,29 @@ var PINGS=[
 function createReverb(ctx,dur){var r=ctx.sampleRate,l=r*dur,b=ctx.createBuffer(2,l,r);for(var ch=0;ch<2;ch++){var d=b.getChannelData(ch);for(var i=0;i<l;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/l,2.8)}var cv=ctx.createConvolver();cv.buffer=b;return cv}
 function initAudio(){audioCtx=new(window.AudioContext||window.webkitAudioContext)();var src=audioCtx.createMediaElementSource(musicEl),mG=audioCtx.createGain();mG.gain.value=.85;synthGain=audioCtx.createGain();synthGain.gain.value=1;analyser=audioCtx.createAnalyser();analyser.fftSize=512;analyser.smoothingTimeConstant=.8;analyserData=new Uint8Array(analyser.frequencyBinCount);var rev=createReverb(audioCtx,3.5),wet=audioCtx.createGain(),dry=audioCtx.createGain();wet.gain.value=.35;dry.gain.value=.65;synthGain.connect(dry).connect(analyser);synthGain.connect(rev).connect(wet).connect(analyser);src.connect(mG).connect(analyser);analyser.connect(audioCtx.destination);scheduleSynths()}
 function scheduleSynths(){var T=audioCtx.currentTime;
+  synthNodes=[];
   // Musical pings (audible, melodic)
-  PINGS.forEach(function(p){var o=audioCtx.createOscillator();o.type=p[4];o.frequency.value=p[1];var g=audioCtx.createGain(),a=Math.min(p[3]*.3,1);g.gain.setValueAtTime(0,T+p[0]);g.gain.linearRampToValueAtTime(p[2],T+p[0]+a);g.gain.setValueAtTime(p[2],T+p[0]+a);g.gain.exponentialRampToValueAtTime(.001,T+p[0]+p[3]);o.connect(g).connect(synthGain);o.start(T+p[0]);o.stop(T+p[0]+p[3]+.1)});
-  // VOIDTONE data layer — encoded message as frequency pairs
-  // Very quiet, woven under the music. Each glyph = 120ms, 40ms gap
-  var voidStart=T+15; // starts 15s in
+  PINGS.forEach(function(p){var o=audioCtx.createOscillator();o.type=p[4];o.frequency.value=p[1];var g=audioCtx.createGain(),a=Math.min(p[3]*.3,1);g.gain.setValueAtTime(0,T+p[0]);g.gain.linearRampToValueAtTime(p[2],T+p[0]+a);g.gain.setValueAtTime(p[2],T+p[0]+a);g.gain.exponentialRampToValueAtTime(.001,T+p[0]+p[3]);o.connect(g).connect(synthGain);o.start(T+p[0]);o.stop(T+p[0]+p[3]+.1);synthNodes.push(o)});
+  // VOIDTONE data layer
+  var voidStart=T+15;
   var glyphDur=.12,gapDur=.04;
   ENCODED_TONES.forEach(function(tone,i){
     var t=voidStart+i*(glyphDur+gapDur);
-    // Bass tone (group identifier)
     var ob=audioCtx.createOscillator();ob.type='sine';ob.frequency.value=tone.bass;
     var gb=audioCtx.createGain();
     gb.gain.setValueAtTime(0,t);gb.gain.linearRampToValueAtTime(.008,t+.01);
     gb.gain.setValueAtTime(.008,t+glyphDur-.01);gb.gain.linearRampToValueAtTime(0,t+glyphDur);
-    ob.connect(gb).connect(synthGain);ob.start(t);ob.stop(t+glyphDur+.05);
-    // Mid tone (position identifier)
+    ob.connect(gb).connect(synthGain);ob.start(t);ob.stop(t+glyphDur+.05);synthNodes.push(ob);
     var om=audioCtx.createOscillator();om.type='sine';om.frequency.value=tone.mid;
     var gm=audioCtx.createGain();
     gm.gain.setValueAtTime(0,t);gm.gain.linearRampToValueAtTime(.006,t+.01);
     gm.gain.setValueAtTime(.006,t+glyphDur-.01);gm.gain.linearRampToValueAtTime(0,t+glyphDur);
-    om.connect(gm).connect(synthGain);om.start(t);om.stop(t+glyphDur+.05);
+    om.connect(gm).connect(synthGain);om.start(t);om.stop(t+glyphDur+.05);synthNodes.push(om);
   });
+}
+function stopSynths(){
+  synthNodes.forEach(function(o){try{o.stop()}catch(e){}});
+  synthNodes=[];
 }
 
 // ═══ VISUALIZER ═══
@@ -692,6 +695,7 @@ function togglePlay(){
     document.getElementById('pauseIcon').style.display='none';
     document.getElementById('playBtn').classList.remove('active');
     subEl.textContent='Paused';
+    stopSynths();
   }else{
     if(!audioInit){initAudio();audioInit=true}
     if(audioCtx&&audioCtx.state==='suspended')audioCtx.resume();
@@ -711,6 +715,7 @@ musicEl.addEventListener('ended',function(){
   document.getElementById('pauseIcon').style.display='none';
   document.getElementById('playBtn').classList.remove('active');
   subEl.textContent='Transmission complete';progEl.style.width='100%';
+  stopSynths();
 });
 
 initViz();fetchLog();setInterval(fetchLog,30000);
